@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast Player</title>
+</head>
+
+<body>
+    <div id="podcast-container" class="col-md-12">
+        <!-- Container for dynamically generated podcast iframes -->
+    </div>
+    <br><br><br><br><br><br>
+
+    <script>// Array di URL dei podcast
+        const podcastURLs = [
+            "https://open.spotify.com/embed/episode/1Xhl3UQ3VGsWTkgvubRCT7?utm_source=generator",
+            "https://open.spotify.com/embed/episode/6z6KgStPAnVlEIheRoA3ZR?utm_source=generator",
+            "https://open.spotify.com/embed/episode/3ASeICoMaOPuilc2ZBUXOv?utm_source=generator",
+            "https://open.spotify.com/embed/episode/3NT6oJ36TQuWiIPHlWYeAM?utm_source=generator",
+            "https://open.spotify.com/embed/episode/6FPCrXDkcFtu23jhLwoSCv?utm_source=generator",
+            "https://open.spotify.com/embed/episode/4pjWBMItah0DTX5Q3AYcQl?utm_source=generator"
+        ];
+
+        // Funzione per generare gli iframe dei podcast
+        function generatePodcastIframes() {
+            const container = document.getElementById("podcast-container");
+
+            // Itera attraverso gli URL dei podcast
+            podcastURLs.forEach((url, index) => {
+                const iframe = document.createElement("iframe");
+                iframe.style.borderRadius = "12px";
+                iframe.src = url;
+                iframe.width = "100%";
+                iframe.height = "152";
+                iframe.frameBorder = "0";
+                iframe.allowFullscreen = true;
+                iframe.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+                iframe.loading = "lazy";
+
+                // Aggiungi l'iframe al container
+                container.appendChild(iframe);
+
+                // Aggiungi uno spazio vuoto tra gli iframe
+                if (index < podcastURLs.length - 1) {
+                    const br = document.createElement("br");
+                    container.appendChild(br);
+                }
+            });
+        }
+
+        // Chiamata alla funzione per generare gli iframe
+        generatePodcastIframes();</script>
+</body>
+
+</html>

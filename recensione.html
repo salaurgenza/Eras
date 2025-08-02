@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recensioni</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="text"], textarea, select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+            .button:hover {
+                background-color: #218838;
+            }
+
+        .review {
+            background: #fff;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+            .review:hover {
+                transform: translateY(-2px);
+            }
+
+            .review .author {
+                font-weight: bold;
+                margin-bottom: 6px;
+                font-size: 18px;
+                color: #222;
+            }
+
+            .review .stars {
+                color: #ffc107;
+                margin-bottom: 10px;
+            }
+
+            .review .content {
+                font-style: italic;
+                color: #555;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lascia una Recensione</h1>
+
+        <form id="reviewForm">
+            <input type="text" id="authorInput" placeholder="Il tuo nome" required>
+            <select id="ratingInput">
+                <option value="1">1 stella</option>
+                <option value="2">2 stelle</option>
+                <option value="3">3 stelle</option>
+                <option value="4">4 stelle</option>
+                <option value="5">5 stelle</option>
+            </select>
+            <textarea id="contentInput" placeholder="Scrivi qui la tua opinione..." required></textarea>
+            <button type="submit" class="button">Invia Recensione</button>
+        </form>
+
+        <div id="reviewsContainer">
+            <!-- Recensioni inserite appariranno qui -->
+        </div>
+    </div>
+
+    <script>document.getElementById("reviewForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            var author = document.getElementById("authorInput").value;
+            var rating = document.getElementById("ratingInput").value;
+            var content = document.getElementById("contentInput").value;
+
+            addReview(author, rating, content);
+
+            // Pulisci i campi
+            document.getElementById("authorInput").value = "";
+            document.getElementById("ratingInput").value = "1";
+            document.getElementById("contentInput").value = "";
+        });
+
+        window.onload = function () {
+            var savedReviews = JSON.parse(localStorage.getItem("reviews"));
+            if (savedReviews) {
+                savedReviews.forEach(function (review) {
+                    addReview(review.author, review.rating, review.content);
+                });
+            }
+        };
+
+        function addReview(author, rating, content) {
+            var container = document.getElementById("reviewsContainer");
+
+            var review = document.createElement("div");
+            review.classList.add("review");
+
+            var authorElement = document.createElement("div");
+            authorElement.classList.add("author");
+            authorElement.textContent = author;
+
+            var starsElement = document.createElement("div");
+            starsElement.classList.add("stars");
+            for (var i = 0; i < rating; i++) {
+                var starIcon = document.createElement("i");
+                starIcon.classList.add("fas", "fa-star");
+                starsElement.appendChild(starIcon);
+            }
+
+            var contentElement = document.createElement("div");
+            contentElement.classList.add("content");
+            contentElement.textContent = content;
+
+            review.appendChild(authorElement);
+            review.appendChild(starsElement);
+            review.appendChild(contentElement);
+
+            container.prepend(review); // Mostra le recensioni più recenti in alto
+
+            var reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+            reviews.push({ author, rating, content });
+            localStorage.setItem("reviews", JSON.stringify(reviews));
+        }</script>
+</body>
+</html>
