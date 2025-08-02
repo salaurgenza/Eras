@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSERIMENTI QR-DATA CODE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: navy;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: navy;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>INSERIMENTI QR-CODE</h1>
+        <div class="card">
+            <canvas id="myChart"></canvas>
+        </div>
+        <table>
+            <tr>
+                <th>Data Inserimento</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>Telefono</th>
+            </tr>
+            <tr>
+                <td>16-05-2024 20:25:54</td>
+                <td>Cristina</td>
+                <td>Calandrella</td>
+                <td>Cristina.calandrella@opbg.net</td>
+                <td>3391030535</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Data Inserimento</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>Telefono</th>
+            </tr>
+            <tr>
+                <td>16-03-2024 20:26:08</td>
+                <td>Margherita</td>
+                <td>Pepe</td>
+                <td>Cristina.calandrella@opbg.net</td>
+                <td>3391030535</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Data Inserimento</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Codice Fiscale</th>
+            </tr>
+            <tr>
+                <td>24-07-2024 20:23:31</td>
+                <td>Lorenzo</td>
+                <td>Arponò </td>
+                <td>Lorenzo@gmail.com</td>
+                <td>1234567</td>
+                <td>LRNART88E34H502L</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Data Inserimento</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Codice Fiscale</th>
+            </tr>
+            <tr>
+                <td>26-03-2024 17:01:02</td>
+                <td>Topolino</td>
+                <td>Minnie</td>
+                <td>Topol.ino@GMAIL.COM</td>
+                <td>0987654321</td>
+                <td>Tplmnn44f55g502l</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Data Inserimento</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Codice Fiscale</th>
+            </tr>
+            <tr>
+                <td>31-03-2024 10:26:46</td>
+                <td>Jim</td>
+                <td>Morrison </td>
+                <td>Jimmorrison@yahoo.it</td>
+                <td>12345678</td>
+                <td>Jmmmrs33r55t501l</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Data Inserimento</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Codice Fiscale</th>
+            </tr>
+            <tr>
+                <td>01-04-2024 13:26:56</td>
+                <td>Girolamo</td>
+                <td>Savonarola</td>
+                <td>Girolammsavonarola@YAHOO.IT</td>
+                <td>234567</td>
+                <td>Grmsvr18r55h592p</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Data Inserimento</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Codice Fiscale</th>
+            </tr>
+            <tr>
+                <td>01-04-2024 13:39:32</td>
+                <td>Minnie</td>
+                <td>Topolino</td>
+                <td>MINNIETOPOLINA@GMAIL.COM</td>
+                <td>098765</td>
+                <td>MNNTPL34G67D501L</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Data Inserimento</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Codice Fiscale</th>
+            </tr>
+            <tr>
+                <td>01-06-2024 13:46:06</td>
+                <td>Minnie</td>
+                <td>Topolino</td>
+                <td>MINNIETOPOLINA@GMAIL.COM</td>
+                <td>098765</td>
+                <td>MNNTPL34G67D501L</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Data Inserimento</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Codice Fiscale</th>
+            </tr>
+            <tr>
+                <td>01-05-2024 14:00:40</td>
+                <td>Mario</td>
+                <td>Bianchi</td>
+                <td>MarioBianchi@GMAIL.COM</td>
+                <td>1234567890</td>
+                <td>MroNbnc34G67D501L</td>
+            </tr>
+        </table>
+    </div>
+    <script>function extractData() {
+            const tables = document.querySelectorAll('table');
+            const dataByMonth = {};
+
+            tables.forEach(table => {
+                const rows = table.querySelectorAll('tr');
+                rows.forEach((row, index) => {
+                    if (index === 0) return; // Skip header row
+                    const cells = row.querySelectorAll('td');
+                    if (cells.length > 0) {
+                        const date = cells[0].innerText.split(' ')[0];
+                        const month = date.split('-')[1];
+
+                        if (!dataByMonth[month]) {
+                            dataByMonth[month] = 0;
+                        }
+
+                        dataByMonth[month] += 1;
+                    }
+                });
+            });
+
+            return dataByMonth;
+        }
+
+        function calculateMovingAverage(data, window_size) {
+            let averages = [];
+            let months = Object.keys(data).sort();
+            for (let i = 0; i < months.length; i++) {
+                let start = Math.max(0, i - window_size + 1);
+                let end = i + 1;
+                let window_data = months.slice(start, end).map(month => data[month]);
+                let average = window_data.reduce((sum, value) => sum + value, 0) / window_data.length;
+                averages.push(average);
+            }
+            return averages;
+        }
+
+        function updateChart() {
+            const dataByMonth = extractData();
+            const labels = Object.keys(dataByMonth).sort();
+            const data = labels.map(month => dataByMonth[month]);
+
+            // Calculate moving average for prediction
+            const movingAverage = calculateMovingAverage(dataByMonth, 3);
+
+            myChart.data.labels = labels;
+            myChart.data.datasets[0].data = data;
+            myChart.data.datasets[1].data = movingAverage;
+            myChart.update();
+        }
+
+        let ctx = document.getElementById('myChart').getContext('2d');
+        let myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Inserimenti per Mese',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Media Mobile (Predizione)',
+                    data: [],
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1,
+                    borderDash: [5, 5]
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        window.onload = updateChart;</script>
+</body>
+</html>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>Data Inserimento</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Codice Fiscale</th>
+        </tr>
+        <tr>
+            <td>10-07-2024 16:18:01</td>
+            <td>Paola</td>
+            <td>Pepe</td>
+            <td>Asdfghjkpa@yajooo.it</td>
+            <td>123456789</td>
+            <td>Ppepla45rty5678901d</td>
+        </tr>
+    </table>    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>Data Inserimento</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Codice Fiscale</th>
+        </tr>
+        <tr>
+            <td>17-05-2025 20:48:14</td>
+            <td>Pietro</td>
+            <td>Paolo</td>
+            <td>Pietro.paolo@yahoo.it</td>
+            <td>09876543</td>
+            <td>Pptrplo34r45h501h</td>
+        </tr>
+    </table>    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>Data Inserimento</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Codice Fiscale</th>
+        </tr>
+        <tr>
+            <td>20-05-2025 16:30:31</td>
+            <td>Del prete</td>
+            <td>Angela</td>
+            <td>Asdfghjk@yahoo.it</td>
+            <td>12345678</td>
+            <td>Dlpang59c18l501a</td>
+        </tr>
+    </table>    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>Data Inserimento</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Codice Fiscale</th>
+        </tr>
+        <tr>
+            <td>20-05-2025 16:40:52</td>
+            <td>Calandrella </td>
+            <td>Saverio</td>
+            <td>Sdfghj@yahoo.it</td>
+            <td>1234567890</td>
+            <td>Clcsvr55g34h501s</td>
+        </tr>
+        <tr>
+        <td>20-05-2025 16:47:52</td>
+        <td>Calandrella</td>
+        <td>Claudio</td>
+        <td>Claudio@yahoo.it</td>
+        <td>123456789</td>
+        <td>Clccla34e56r501h</td>
+    </tr>
+    <tr>
+        <td>20-05-2025 17:31:54</td>
+        <td>Livio</td>
+        <td>Giuliani</td>
+        <td>Livio@yahoo.it</td>
+        <td>123456789</td>
+        <td>Lvogll34g55y501l</td>
+    </tr>
+    <tr>
+        <td>20-05-2025 18:44:18</td>
+        <td>Mac to io</td>
+        <td>Augusto</td>
+        <td>Asdfgh@gmail.com</td>
+        <td>1234567</td>
+        <td>Sdfghjk45zsdfgh567</td>
+    </tr>
+    <tr>
+        <td>20-05-2025 19:47:46</td>
+        <td>Stefano</td>
+        <td>Pepe</td>
+        <td>Pepestefano@yahoo.it</td>
+        <td>12345678</td>
+        <td>Ppesfn77e26h501l</td>
+    </tr>
+    <tr>
+        <td>20-05-2025 21:06:38</td>
+        <td>Stefano</td>
+        <td>Pepe</td>
+        <td>Pepestefano@yahoo.it</td>
+        <td>12345678</td>
+        <td>Ppesfn77e26h501l</td>
+    </tr>
+    <tr>
+        <td>20-05-2025 21:30:00</td>
+        <td>Stefano</td>
+        <td>Peperone</td>
+        <td>Pepestefano@yahoo.it</td>
+        <td>12345678</td>
+        <td>Ppesfn77e26h501l</td>
+    </tr>
+    <tr>
+        <td>20-05-2025 21:36:10</td>
+        <td>Stefano</td>
+        <td>Peper</td>
+        <td>Pepestefano@yahoo.it</td>
+        <td>12345678</td>
+        <td>Ppesfn77e26h501l</td>
+    </tr>
+    <tr>
+        <td>20-05-2025 21:41:54</td>
+        <td>Stefania</td>
+        <td>Pepero</td>
+        <td>Pepestefano@yahoo.it</td>
+        <td>12345678</td>
+        <td>Ppesfn77e26h501l</td>
+    </tr>
+    <tr>
+        <td>20-05-2025 21:54:53</td>
+        <td>Stefania</td>
+        <td>Lazzarini</td>
+        <td>Pepestefano@yahoo.it</td>
+        <td>12345678</td>
+        <td>Ppesfn77e26h501l</td>
+    </tr>
+    <tr>
+        <td>21-05-2025 14:14:58</td>
+        <td>Vincenzo</td>
+        <td>Mencio</td>
+        <td>Stefano.pepe@yaihoo.it</td>
+        <td>12345678</td>
+        <td>Sdfghjkl</td>
+    </tr>
+    <tr>
+        <td>06-06-2025 16:21:24</td>
+        <td>Fresa</td>
+        <td>Enrico</td>
+        <td>Frezza@yahoo.it</td>
+        <td>123456789</td>
+        <td>Fraenr44rc36f409l</td>
+    </tr>
+    <tr>
+        <td>06-06-2025 16:35:40</td>
+        <td>Fresa</td>
+        <td>Enrico</td>
+        <td>Frezza@yahoo.it</td>
+        <td>123456789</td>
+        <td>Fraenr44rc36f409l</td>
+    </tr>
+    <tr>
+        <td>06-06-2025 16:48:35</td>
+        <td>Paoloni</td>
+        <td>Enrico</td>
+        <td>Frezza@yahoo.it</td>
+        <td>123456789</td>
+        <td>Fraenr44rc36f409l</td>
+    </tr>
+    <tr>
+        <td>06-06-2025 16:54:30</td>
+        <td>Paolini</td>
+        <td>Enrico</td>
+        <td>Frezza@yahoo.it</td>
+        <td>12343fr680</td>
+        <td>Fraenr44rc3er567l</td>
+    </tr>
+    <tr>
+        <td>06-06-2025 17:13:00</td>
+        <td>Paolinissimo</td>
+        <td>Enrico e</td>
+        <td>Frezza@yahoo.it</td>
+        <td>12343fr680</td>
+        <td>Fraenr44ertrc3er567l</td>
+    </tr>
+    <tr>
+        <td>06-06-2025 17:20:34</td>
+        <td>Pepe</td>
+        <td>Stefano</td>
+        <td>Frezza@yahoo.it</td>
+        <td>12343fr680</td>
+        <td>Ppesfn77e26h501l</td>
+    </tr>
+</table>
