@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <br>
+    <br>
+
+    <div style="text-align: center;">
+        <h1>Eras Patients Surgery QR Code </h1>
+    </div>
+    <div class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <!-- input class="form-control me-2 mb-0" type="search" placeholder="Search" aria-label="Search" style="max-width: 200px;"-->
+        <!-- button class="btn btn-outline-success" type="submit">Search</!--button-->
+        <li class="nav-item"><a class="btn btn-outline-primary" aria-current="page" href="file:///Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/loginEras.html">ERAS</a></li>
+        <!--li><a href="/Users/stefanopepe/Downloads/bootstrap-5.3.2-examples 3/headers/riconoscimentOggetti.html" class="btn btn-outline-danger">Cam</a></!--li-->
+        <button class="btn btn-outline-danger" onclick="openVideoPopup()">
+            VIDEO
+        </button>
+
+        <label for="searchInput">Search</label>
+        <input type="text" id="searchInput" oninput="searchPage()">
+    </div>
+    <!--- button class="btn btn-outline-primary" onclick="redirectToMap()">Google Maps</!--button-->
+    <!-- Contenuto del popup -->
+    <div id="video-popup">
+        <span id="close-btn" onclick="closeVideoPopup()">X</span>
+        <video width="1000" height="900" controls>
+            <source src="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/images/erasMilano.mov" type="video/mp4">
+            Il tuo browser non supporta il tag video.
+        </video>
+    </div>
+
+    <script src="../assets/js/color-modes.js"></script>
+
+
+    <title>Eras Recovery</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.118.2">
+    <title>Headers · Bootstrap v5.3</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        .form-label {
+            font-weight: bold;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .allineaAlCentro {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .allineaAlTop {
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+        }
+
+        video {
+            width: 640px;
+            height: 360px;
+            top: 0px;
+        }
+
+        @media (max-width: 1400px) {
+            /* CSS that should be displayed if width is equal to or less than 800px goes here */
+            video {
+                width: 480px;
+                height: 270px;
+                top: 0px;
+            }
+        }
+
+        @media (max-width: 800px) {
+            /* CSS that should be displayed if width is equal to or less than 800px goes here */
+            video {
+                width: 320px;
+                height: 180px;
+                top: 0px;
+            }
+        }
+
+        /* Regole CSS per rendere la pagina responsive */
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .foto {
+            width: 100%;
+            max-width: 300px; /* Larghezza massima delle foto */
+            margin-bottom: 20px;
+            float: left;
+            box-sizing: border-box;
+        }
+
+        @media only screen and (min-width: 600px) {
+            /* Regole CSS per schermi con larghezza minima di 600px */
+            .foto {
+                width: 50%; /* Le foto occuperanno il 50% della larghezza del contenitore */
+            }
+        }
+
+        @media only screen and (min-width: 900px) {
+            /* Regole CSS per schermi con larghezza minima di 900px */
+            .foto {
+                width: 33.33%; /* Le foto occuperanno il 33.33% della larghezza del contenitore */
+            }
+        }
+
+        .icon-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            text-align: center;
+        }
+
+            .icon-container a {
+                text-decoration: none;
+                color: #000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .icon-container img {
+                width: 130px;
+                height: 100px;
+                margin-bottom: 5px;
+            }
+
+            .icon-container p {
+                margin: 0; /* Rimuove il margine inferiore */
+            }
+
+        .dropdown .btn {
+            background-color: white;
+            border: none; /* Rimuove il bordo del pulsante */
+        }
+
+            .dropdown .btn img {
+                background-color: white;
+            }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+
+        #chat-container {
+            width: 300px;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: scroll;
+            max-height: 300px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            border: 1px solid #000;
+            padding: 8px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* Stili per il pulsante per aprire il popup */
+        #openPopupBtn {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .answerButton {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .green {
+            background-color: green;
+            color: white;
+        }
+
+        .red {
+            background-color: red;
+            color: white;
+        }
+
+        .b-example-divider {
+            width: 100%;
+            height: 2.5rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+
+        /* Aggiunto display: none; per nascondere i popup inizialmente */
+        .popup {
+            display: none;
+        }
+
+        #video-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            z-index: 1000;
+        }
+
+        /* Stile per il pulsante di chiusura del popup */
+        #close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        p {
+            text-align: justify;
+        }
+
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+        }
+
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+            .nav-scroller .nav {
+                display: flex;
+                flex-wrap: nowrap;
+                padding-bottom: 1rem;
+                margin-top: -1px;
+                overflow-x: auto;
+                text-align: center;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+
+
+
+        .bd-mode-toggle {
+            z-index: 1500;
+        }
+
+            .bd-mode-toggle .dropdown-menu .active .bi {
+                display: block !important;
+            }
+
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+            #popup img {
+                max-width: 100%;
+                height: auto;
+            }
+
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #slider {
+            width: 100%; /* Regola la larghezza del tuo slider */
+            overflow: hidden;
+            position: relative;
+        }
+
+        #slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .b-example-divider {
+            width: 100%;
+            height: 0.05rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+        }
+
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+            .nav-scroller .nav {
+                display: flex;
+                flex-wrap: nowrap;
+                padding-bottom: 1rem;
+                margin-top: -1px;
+                overflow-x: auto;
+                text-align: center;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+
+        .btn-bd-primary {
+            --bd-violet-bg: #712cf9;
+            --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+            --bs-btn-font-weight: 600;
+            --bs-btn-color: var(--bs-white);
+            --bs-btn-bg: var(--bd-violet-bg);
+            --bs-btn-border-color: var(--bd-violet-bg);
+            --bs-btn-hover-color: var(--bs-white);
+            --bs-btn-hover-bg: #6528e0;
+            --bs-btn-hover-border-color: #6528e0;
+            --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+            --bs-btn-active-color: var(--bs-btn-hover-color);
+            --bs-btn-active-bg: #5a23c8;
+            --bs-btn-active-border-color: #5a23c8;
+        }
+
+        #contenitore {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Imposta la larghezza massima dell'immagine */
+            margin: auto;
+        }
+
+
+
+        #titolo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff; /* Colore del testo */
+            font-size: 24px; /* Dimensione del testo */
+            font-weight: bold; /* Grassetto */
+        }
+
+        .bd-mode-toggle {
+            z-index: 1500;
+        }
+
+            .bd-mode-toggle .dropdown-menu .active .bi {
+                display: block !important;
+            }
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+        }
+
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+        }
+
+        .bd-mode-toggle {
+            z-index: 1500;
+        }
+
+            .bd-mode-toggle .dropdown-menu .active .bi {
+                display: block !important;
+            }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .modal {
+            display: none; /* Inizialmente nascosta */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4); /* Sfondo scuro traslucido */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* Posizionamento centrale */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #uploadedFiles {
+            margin-top: 10px;
+        }
+
+            #uploadedFiles a {
+                display: block;
+                margin-bottom: 5px;
+            }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="headers.css" rel="stylesheet">
+</head>
+<body>
+    <p></p>
+
+
+    <!-- Contenuto del popup -->
+    <div id="popup" class="modal">
+        <div class="modal-content">
+            <span id="closePopupBtn" style="float: right; cursor: pointer;">&times;</span>
+            <label for="Cognome">Cognome:</label>
+            <input type="text" id="Cognome" required><br><br>
+
+            <label for="Nome">Nome:</label>
+            <input type="text" id="Nome" required><br><br>
+
+            <label for="CodiceFiscale">Codice Fiscale:</label>
+            <input type="text" id="CodiceFiscale" required><br><br>
+
+
+            <label for="Email">Email:</label>
+            <input type="text" id="Email" required><br><br>
+
+            <label for="Telefono">Telefono:</label>
+            <input type="text" id="Telefono" required><br><br>
+
+            <label for="DatadiNascita">Data di Nascita:</label>
+            <input type="date" id="DatadiNascita" required><br><br>
+
+            <label for="autorizzazione1">
+                <input type="checkbox" id="autorizzazione1" required>
+                Autorizzo il trattamento dei miei dati personali per scopi specifici.
+            </label><br><br>
+
+            <label for="autorizzazione2">
+                <input type="checkbox" id="autorizzazione2" required>
+                Autorizzo il trattamento dei miei dati personali per scopi di marketing.
+            </label><br><br>
+
+            <button id="generaQR">Genera QR Code</button><br><br>
+
+            <!-- Contenitore per il QR Code -->
+            <div align="right" id="qrcode"></div>
+        </div>
+    </div>
+
+
+    <div>
+        <main class="d-flex flex-nowrap">
+            <h1 class="visually-hidden">Sidebars examples</h1>
+        </main>
+    </div>
+</body>
+
+<h5 class="text-body-emphasis h4"></h5>
+<span class="text-body-secondary"></span>
+
+
+
+<nav class="navbar navbar-expand-lg bg-body-quaternary">
+    <div class="container-fluid">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <div class="container-fluid pb-3">
+                    <div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;">
+                        <div class="bg-body-tertiary border rounded-3">
+                            <div class="text-end">
+                                <div class="col-md-4">
+                                    <div align="center" class="icon-container">
+                                        <a href="file:///Users/stefanopepe/Downloads/bootstrap-5.3.2-examples/headers/ERAS%202.html" target="_blank" rel="noopener noreferrer">
+                                            <img class="btn btn-outline-primary zoomable" src="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/images/frecce.gif" width="120" height="100">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div align="right" id="chat-container">
+                                    <div id="chat-log"></div>
+                                    <label for="ChatBot">ChatBot:</label>
+                                    <input type="text" id="user-input" placeholder="scrivi qui">
+                                </div>
+                                <div class="btn btn-warning" id="openPopupBtn">QR-CODE </div>
+                                <div class="btn btn-success" onclick="openModal('loginModal')">AREA RISERVATA</div>
+
+                            </div>
+                            <!--  a href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/identificativoQr.html" class="btn btn-warning">QR-CODE<a-->
+                            <div class="flex-shrink-0 p-3" style="width: 500px;">
+                                <strong>
+                                    <ul class="list-unstyled ps-0">
+                                        <li class="border-top my-3"></li>
+                                        <div class="my-3 py-3">
+                                            <div align="center">
+                                                <h2 class="display-5">ERAS</h2>
+                                            </div>
+                                            <br><br>
+                                            <p style="text-align: justify;">Attraverso il Protocollo ERAS, il paziente diventa protagonista del suo stesso recupero: il risultato clinico sarà superiore rispetto ai protocolli standard perché si lavora anche sulla psicologia del paziente motivandolo nelle aspettative appropriate. Nei Centri Specialistici del resto del Mondo in cui la pratica è consolidata si è da tempo dimostrata l’importanza dell’approccio multidisciplinare come cardine della metodologia. Infatti a fianco del Chirurgo diventa fondamentale il coinvolgimento dell’Anestesista, del Fisioterapista, del Farmacista, del Nutrizionista, del Personale Infermieristico e dello Psicologo.</p>
+                                            <p style="text-align: justify;">I principali benefici del “Protocollo ERAS” sono:</p>
+                                            <p style="text-align: justify;">- Riduzione della degenza ospedaliera.</p>
+                                            <p style="text-align: justify;">- Maggiore coinvolgimento del paziente nel percorso terapeutico.</p>
+                                            <p style="text-align: justify;">- Minori complicanze peri-operatorie come riduzione del sanguinamento piuttosto che del rischio di trasfusioni di sangue prossime allo zero.</p>
+                                            <p style="text-align: justify;">- Controllo del dolore post-operatorio, nausea e vomito.</p>
+                                            <p style="text-align: justify;">- Riduzione del posizionamento del catetere vescicale.</p>
+                                            <p style="text-align: justify;">- Riduzione delle infezioni ospedaliere.</p>
+                                            <p style="text-align: justify;">- Ripresa funzionale più rapida.</p>
+                                            <p style="text-align: justify;">- Coinvolgimento del paziente.</p>
+                                            <p style="text-align: justify;">Gli obiettivi del protocollo “ERAS” si possono ottenere solo se il paziente assume un ruolo attivo nel percorso assistenziale ed è pertanto fondamentale il coinvolgimento suo e dei familiari mediante informazioni dettagliate riguardo al percorso clinicoassistenziale proposto (modalità di ricovero, degenza, gesto chirurgico e percorso riabilitativo conseguente). Il paziente deve partecipare ad esso e deve dimostrare di averne tratto profitto.</p>
+                                            <p style="text-align: justify;">Ottimizzazione delle condizioni cliniche prima del ricovero:</p>
+                                            <p style="text-align: justify;">Per poter realizzare un “APPROCCIO ERAS” è cruciale ottimizzare nel periodo precedente al ricovero ospedaliero le condizioni generali del paziente. È anzitutto opportuno selezionare il paziente idoneo e controllare i fattori di rischio che possono influire sulla durata dell’ospedalizzazione e, soprattutto, sulle complicazioni dell’intervento chirurgico. In particolare alcuni fattori di frequente riscontro possono essere migliorati prima dell’intervento, anche con un approccio multidisciplinare, ad esempio:</p>
+                                            <p style="text-align: justify;">- Fumo e consumo di alcolici.</p>
+                                            <p style="text-align: justify;">- Ansia e depressione prima dell’intervento.</p>
+                                            <p style="text-align: justify;">- Malnutrizione/obesità.</p>
+                                            <p style="text-align: justify;">- Anemia pre-operatoria.</p>
+                                        </div>
+                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div align="center" class="container-fluid pb-3">
+            <strong>Clicca i Link sottostanti per approfondire</strong>
+            <br>
+            <br>
+            <br>
+            <br>
+            <!-- Finestra modale per l'autenticazione -->
+            <div id="loginModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('loginModal')">&times;</span>
+                    <h2>AREA RISERVATA</h2>
+                    <form id="loginForm">
+                        <label for="username">Username:</label><br>
+                        <input type="text" id="username" name="username"><br><br>
+                        <label for="password">Password:</label><br>
+                        <input type="password" id="password" name="password"><br><br>
+                        <button type="button" onclick="login()">Accedi</button>
+                    </form>
+                </div>
+            </div>
+
+
+
+            <!-- Sezione per i file caricati nella pagina principale -->
+            <div id="uploadedFiles"></div>
+
+            <!-- Finestra modale per il caricamento dei file -->
+            <div id="uploadModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('uploadModal')">&times;</span>
+                    <h2>Carica i tuoi file</h2>
+                    <form id="uploadForm">
+                        <label for="fileInput" class="btn">Scegli un file</label> <!-- Pulsante personalizzato per aprire l'input di tipo file -->
+                        <input type="file" id="fileInput" multiple onchange="showSelectedFiles(event.target.files)"> <!-- Imposta onchange per catturare i file selezionati -->
+                        <div id="selectedFiles"></div> <!-- Mostra i file selezionati -->
+                        <br><br>
+                        <button type="button" onclick="moveFiles()">Trasferisci nella pagina iniziale</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-1 d-flex flex-column align-items-center">
+                <div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;">
+                    <div class="bg-body-tertiary border rounded-3">
+                        <form id="Form" class="row g-3">
+                            <div class="icon-container d-flex justify-content-around mb-3">
+                                <div class="dropdown text-center">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img class="btn btn-outline-primary zoomable" src="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/images/pdf.gif" width="100" height="100">
+                                        <p>Materiali Informativi</p>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/Obiettivo Eras.pdf" target="_blank" rel="noopener noreferrer">Obiettivo</a></li>
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/L’approccio del Protocollo Eras.pdf" target="_blank" rel="noopener noreferrer">Approccio</a></li>
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/Il TEAM.pdf" target="_blank" rel="noopener noreferrer">Team</a></li>
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/L’Anestesia nel Protocollo Eras.pdf" target="_blank" rel="noopener noreferrer">Anestesia</a></li>
+                                    </ul>
+                                </div>
+                                <div class="dropdown text-center">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img class="btn btn-outline-primary zoomable" src="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/images/accettazione.png" width="100" height="100">
+                                        <p>Pre-Ospedalizzazione</p>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/Esercizio fisico.pdf" target="_blank" rel="noopener noreferrer">Esercizio Fisico</a></li>
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/La preparazione intestinale.pdf" target="_blank" rel="noopener noreferrer">Preparazione Intestinale</a></li>
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/Digiuno preoperatorio e trattamento con carboidrati.pdf" target="_blank" rel="noopener noreferrer">Digiuno Pre-Operatorio</a></li>
+                                    </ul>
+                                </div>
+                                <div class="dropdown text-center">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img class="btn btn-outline-primary zoomable" src="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/images/icons8-operating-room-64.png" width="100" height="100">
+                                        <p>Trattamento</p>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/La profilassi Trombo.pdf" target="_blank" rel="noopener noreferrer">Profilassi Trombosi</a></li>
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/La profilassi delle Infezioni Chirurgiche.pdf" target="_blank" rel="noopener noreferrer">Profilassi Infezioni Chirurgiche</a></li>
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/Il Trattamento Chirurgico.pdf" target="_blank" rel="noopener noreferrer">Trattamento Chirurgico</a></li>
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/Analgesia Post.pdf" target="_blank" rel="noopener noreferrer">Analgesia Post-Op</a></li>
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/Alimentazione.pdf" target="_blank" rel="noopener noreferrer">Alimentazione</a></li>
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/Mobilizzazione.pdf" target="_blank" rel="noopener noreferrer">Mobilizzazione</a></li>
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/ERAS/Dimissione.pdf" target="_blank" rel="noopener noreferrer">Dimissione</a></li>
+                                    </ul>
+                                </div>
+                                <div class="dropdown text-center">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink4" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img class="btn btn-outline-primary zoomable" src="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/images/video.gif" width="100" height="100">
+                                        <p>Movie</p>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink4">
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/html/POD.html" target="_blank" rel="noopener noreferrer">Podcast</a></li>
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Downloads/ProvaStrumenti/Video.html" target="_blank" rel="noopener noreferrer">Video</a></li>
+                                    </ul>
+                                </div>
+                                <div class="dropdown text-center">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink4" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img class="btn btn-outline-primary zoomable" src="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/images/idea.gif" width="100" height="100">
+                                        <p>AREA RiSERVATA</p>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink4">
+                                        <li><a class="dropdown-item" href="/Volumes/INTENSO/percorso/moodle.html" target="_blank" rel="noopener noreferrer">LOGIN</a></li>
+                                        <li><a class="dropdown-item" href="/Users/stefanopepe/Desktop/bootstrap-5.3.2-examples 3/headers/recensione.html" target="_blank" rel="noopener noreferrer">Recensioni</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="bg-body-tertiary border rounded-3">
+                    <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/images/eras.jpg" class="d-block w-400" alt="Image 1">
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                    <div align="center"
+                                    <p>Ti invitiamo a leggere qui sotto le raccomandazioni dei nostri specialisti per migliorare il tuo percorso chirurgico nella fase post operatoria</p>
+                                    <br>
+                                    <br>
+                            <strong>Clicca le icone sottostanti per approfondire</strong>
+                                </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <table>
+                        <tr>
+                            <td>
+                                <!-- Colonna 1 -->
+                                <div align="center" class="container-fluid pb-3">
+                                    <div class="col-md-4">
+                                        <div class="icon-container">
+                                            <a href="" target="_blank" rel="noopener noreferrer">
+                                                <img class="btn btn-outline-primary zoomable" src="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/images/frecce.gif" width="120" height="100">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="question">
+                                        <p>L’Eras Patients Surgery QR Code applica il Protocollo “ERAS” agli interventi chirurgici, permettendo un notevole incremento qualitativo dei risultati, attraverso una riduzione del dolore post-operatorio e dello stress chirurgico. L’applicazione di tale protocollo prevede una serie di azioni e procedure da intraprendere nelle tre fasi pre, intra e post operatoria, alle quali si può accedere dai seguenti pulsanti:</p>
+                                        <button style="background-color: green;" class="answerButton" onclick="risposta('si')">
+                                            <img class="btn btn-outline-primary zoomable" src="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/images/icons8-sala-d'attesa-64.png" width="120" height="100" alt="Fase Pre-Operatoria">
+                                            Fase Pre-Operatoria
+                                        </button>
+                                        <button style="background-color: yellow; " class="answerButton" onclick="risposta('no')">
+                                            <img class="btn btn-outline-primary zoomable" src="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/images/icons8-chirurgia-64.png" width="120" height="100">
+                                            Fase Intra-Operatoria
+                                        </button>
+                                        <button style="background-color: red; " class="answerButton" onclick="risposta('go')">
+                                            <img class="btn btn-outline-primary zoomable" src="/Users/stefanopepe/Desktop/AssistenzaDomiciliare/EyeCare/images/icons8-recupero-64.png" width="120" height="100">
+                                            Fase Post-Operatoria
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            </ul>
+            <h2></h2>
+        </div>
+    </div>
+
+</nav>
+<main>
+    <h1 class="visually-hidden">Headers examples</h1>
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="check2" viewBox="0 0 16 16">
+            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+        </symbol>
+        <symbol id="circle-half" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
+        </symbol>
+        <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+            <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z" />
+            <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z" />
+        </symbol>
+        <symbol id="sun-fill" viewBox="0 0 16 16">
+            <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+        </symbol>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="arrow-right-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+        </symbol>
+        <symbol id="x-lg" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+            <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+        </symbol>
+    </svg>
+    <br><br>
+    <div align="center" class="elementor-element elementor-element-f0f5012 sc_fly_static elementor-widget elementor-widget-google_maps trx_addons_parallax_layers_inited trx_addons_parallax_blocks_inited" data-id="f0f5012" data-element_type="widget" data-widget_type="google_maps.default" style="border: 2px solid #ccc; border-radius: 10px; overflow: hidden; background: linear-gradient(to bottom, #ffffff, #f0f0f0);">
+        <div class="elementor-widget-container">
+            <div class="elementor-custom-embed">
+                <iframe width="1230" height="550" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3073.968163877596!2d12.4266215!3d41.932399!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f6207daa9c8eb%3A0x29d8f31273c50b6a!2sLargo%20Agostino%20Gemelli%2C%2000165%20Roma%20RM%2C%20Italy!5e0!3m2!1sen!2sus!4v1655439823508!5m2!1sen!2sus" title="Largo Agostino Gemelli, Roma, Italia" aria-label="Largo Agostino Gemelli, Roma, Italia" class="asclepius_resize trx_addons_resize"></iframe>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=TUA_API_KEY&callback=initMap" async defer></script>
+
+<script>function openPopup(popupId) {
+        // Chiudi tutti i popup aperti
+
+        var popups = document.getElementsByClassName('popup');
+
+        for (var i = 0; i < popups.length; i++) {
+            popups[i].style.display = 'none';
+        }
+
+        // Apri il popup desiderato
+
+        var popup = document.getElementById('popup_' + popupId);
+        popup.style.display = 'block';
+
+        // Esegui il timer per 15 secondi
+        var timerElement = document.getElementById('timer_' + popupId);
+        var count = 15;
+
+        var timer = setInterval(function () {
+            count--;
+            timerElement.textContent = count;
+
+            if (count == 0) {
+                clearInterval(timer);
+                popup.style.display = 'none';
+            }
+        }, 1000);
+    }
+
+    function redirectToMap() {
+        window.location.href = "https://www.google.com/maps/@41.9517393,12.3874062,19z/data=!3m1!4b1?authuser=0&entry=ttu";
+    }
+
+    let currentIndex = 0;
+    const slides = document.getElementById('slides');
+    const totalSlides = document.querySelectorAll('.slide').length;
+
+    function showSlide(index) {
+        if (index < 0) {
+            currentIndex = totalSlides - 1;
+        } else if (index >= totalSlides) {
+            currentIndex = 0;
+        } else {
+            currentIndex = index;
+        }
+
+        const translateValue = -100 * currentIndex + '%';
+        slides.style.transform = 'translateX(' + translateValue + ')';
+    }
+
+    function prevSlide() {
+        showSlide(currentIndex - 1);
+    }
+
+    function nextSlide() {
+        showSlide(currentIndex + 1);
+    }
+
+    // Imposta l'animazione automatica ogni 3 secondi
+
+    setInterval(nextSlide, 3000);
+
+    // Funzione per aprire il popup
+    function openVideoPopup() {
+        document.getElementById('video-popup').style.display = 'block';
+        playVideoForDuration(360); // Chiamata a una funzione per avviare il video per 360 secondi
+    }
+
+    // Funzione per chiudere il popup
+    function closeVideoPopup() {
+        document.getElementById('video-popup').style.display = 'none';
+        stopVideo(); // Chiamata a una funzione per fermare il video quando il popup viene chiuso
+    }
+
+    // Funzione per avviare il video per una determinata durata
+    function playVideoForDuration(duration) {
+        const video = document.querySelector('video');
+        video.play();
+
+        // Chiudi automaticamente il popup dopo la durata specificata
+        setTimeout(closeVideoPopup, duration * 1000);
+    }
+
+    // Funzione per fermare il video
+
+    function stopVideo() {
+        const video = document.querySelector('video');
+        video.pause();
+        video.currentTime = 0; // Riporta il video all'inizio
+    }
+    function reloadPage() {
+        location.reload();
+    }
+
+    function openLink() {
+        // Sostituisci 'https://www.salutelazio.it/igiene-delle-mani' con il tuo URL desiderato
+        var linkUrl = 'https://www.salutelazio.it/igiene-delle-mani';
+        window.open(linkUrl, '_blank'); // Apre il link in una nuova finestra o scheda
+
+    }
+    function ottieniPosizione() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Mostra la posizione sulla mappa
+                    mostraMappa(latitude, longitude);
+                },
+                function (error) {
+                    console.error("Errore nell'ottenere la posizione:", error.message);
+                }
+            );
+        } else {
+            alert("La geolocalizzazione non è supportata dal tuo browser.");
+        }
+    }
+
+    function mostraMappa(lat, long) {
+        const mapElement = document.getElementById('map');
+
+        // Imposta la posizione iniziale della mappa
+        const map = new google.maps.Map(mapElement, {
+            center: { lat, lng: long },
+            zoom: 15
+        });
+
+        // Aggiungi un marker per la posizione corrente
+        const marker = new google.maps.Marker({
+            position: { lat, lng: long },
+            map: map,
+            title: 'La tua posizione'
+        });
+    }</script>
+
+<body>
+
+
+
+    <script>const columns = document.querySelectorAll('td');
+        const synth = window.speechSynthesis;
+
+        columns.forEach((column) => {
+            const questions = column.querySelectorAll('.question');
+            const answerButtons = column.querySelectorAll('.answerButton');
+
+            let pazienteOperabile = true; // Aggiungi variabile di controllo
+
+            questions.forEach((question, index) => {
+                const yesButton = answerButtons[index * 2];
+                const goButton = answerButtons[index * 2 + 1];
+                const noButton = answerButtons[index * 2 + 2];
+                // fase pre operatoria
+                yesButton.addEventListener('click', () => {
+                    const answerText = document.createElement('p');
+                    answerText.textContent = "Valutazione medica: Prima dell'intervento, il paziente viene sottoposto a una completa valutazione medica. Ciò può includere esami del sangue, test di imaging, e altri esami diagnostici per valutare la salute generale e identificare eventuali condizioni preesistenti che potrebbero influire sull'intervento. Consulenza pre - operatoria: Il chirurgo e il team medico spiegano al paziente i dettagli dell'intervento, i rischi associati e i benefici attesi. Durante questa fase, vengono fornite informazioni sulle opzioni di trattamento e vengono risposte eventuali domande o preoccupazioni del paziente. Preparazione psicologica: L'aspetto psicologico è un elemento importante nella fase pre-operatoria. I pazienti possono ricevere supporto per gestire lo stress e l'ansia legati all'intervento chirurgico. In alcuni casi, la consulenza psicologica potrebbe essere consigliata. Istruzioni pre - operatorie: I pazienti ricevono istruzioni specifiche su cosa fare prima dell'intervento. Ciò può includere indicazioni sul digiuno, sospensione di determinati farmaci, e altre procedure preparatorie. Pianificazione logistica: La fase pre - operatoria coinvolge anche la pianificazione logistica, come la prenotazione del giorno dell'intervento, il tempo di degenza ospedaliera previsto e altri dettagli logistici. Preparazione fisica: In alcuni casi, i pazienti possono essere incoraggiati a seguire determinati esercizi fisici o a seguire una dieta specifica prima dell'intervento. Questo dipende dal tipo di chirurgia e dalle esigenze individuali del paziente. Preparazione dell'ambiente chirurgico: Il team medico si assicura che l'ambiente chirurgico sia pronto e sicuro per l'intervento. Ciò include la sterilizzazione degli strumenti chirurgici e la preparazione della sala operatoria. La fase pre - operatoria è essenziale per garantire che il paziente sia adeguatamente preparato sia fisicamente che mentalmente per l'intervento chirurgico. La collaborazione tra il paziente e il team medico è fondamentale per il successo complessivo dell'operazione.";
+                    question.appendChild(answerText);
+                    speak("Valutazione medica: Prima dell'intervento, il paziente viene sottoposto a una completa valutazione medica. Ciò può includere esami del sangue, test di imaging, e altri esami diagnostici per valutare la salute generale e identificare eventuali condizioni preesistenti che potrebbero influire sull'intervento. Consulenza pre - operatoria: Il chirurgo e il team medico spiegano al paziente i dettagli dell'intervento, i rischi associati e i benefici attesi. Durante questa fase, vengono fornite informazioni sulle opzioni di trattamento e vengono risposte eventuali domande o preoccupazioni del paziente. Preparazione psicologica: L'aspetto psicologico è un elemento importante nella fase pre-operatoria. I pazienti possono ricevere supporto per gestire lo stress e l'ansia legati all'intervento chirurgico. In alcuni casi, la consulenza psicologica potrebbe essere consigliata. Istruzioni pre - operatorie: I pazienti ricevono istruzioni specifiche su cosa fare prima dell'intervento. Ciò può includere indicazioni sul digiuno, sospensione di determinati farmaci, e altre procedure preparatorie. Pianificazione logistica: La fase pre - operatoria coinvolge anche la pianificazione logistica, come la prenotazione del giorno dell'intervento, il tempo di degenza ospedaliera previsto e altri dettagli logistici. Preparazione fisica: In alcuni casi, i pazienti possono essere incoraggiati a seguire determinati esercizi fisici o a seguire una dieta specifica prima dell'intervento. Questo dipende dal tipo di chirurgia e dalle esigenze individuali del paziente. Preparazione dell'ambiente chirurgico: Il team medico si assicura che l'ambiente chirurgico sia pronto e sicuro per l'intervento. Ciò include la sterilizzazione degli strumenti chirurgici e la preparazione della sala operatoria. La fase pre - operatoria è essenziale per garantire che il paziente sia adeguatamente preparato sia fisicamente che mentalmente per l'intervento chirurgico. La collaborazione tra il paziente e il team medico è fondamentale per il successo complessivo dell'operazione.");
+                });
+                //fase post operatoria
+
+                noButton.addEventListener('click', () => {
+                    const answerText = document.createElement('p');
+                    answerText.textContent = "Recupero immediato: Immediatamente dopo l'intervento chirurgico, i pazienti vengono monitorati in una sala di risveglio. Qui vengono controllati i segni vitali, gestiti eventuali effetti collaterali dell'anestesia e valutata la stabilità del paziente. Cure post - operatorie: A seconda del tipo di chirurgia, il paziente potrebbe richiedere cure specifiche come cambio di bendaggi, somministrazione di farmaci e terapie fisiche. Controllo del dolore: Il dolore post - operatorio viene gestito con farmaci prescritti in base alle esigenze del paziente.È importante seguire le indicazioni del medico per garantire un sollievo efficace dal dolore. Mobilità: A seconda dell'intervento chirurgico, ai pazienti potrebbe essere consigliato di muoversi il prima possibile per prevenire complicazioni come coaguli di sangue e atrofia muscolare. Follow - up medico: I pazienti di solito hanno appuntamenti di follow - up con il chirurgo per valutare la progressione del recupero e affrontare eventuali problemi o preoccupazioni. Riabilitazione: In alcuni casi, la riabilitazione può essere parte integrante della fase post - operatoria.Questo può includere fisioterapia, terapia occupazionale o altri programmi progettati per ripristinare la funzione e la mobilità. Restrizioni e raccomandazioni: Ai pazienti possono essere date istruzioni specifiche su attività da evitare durante il recupero, nonché raccomandazioni su modifiche allo stile di vita e alla dieta. Supporto emotivo: La fase post - operatoria può essere emotivamente impegnativa.Il supporto emotivo da parte di familiari, amici e, in alcuni casi, professionisti della salute mentale, può essere cruciale per un recupero di successo. È fondamentale seguire le istruzioni del team medico e comunicare con loro se sorgono preoccupazioni o complicazioni durante la fase post - operatoria.Ogni paziente e ogni intervento chirurgico sono unici, quindi il piano di cure post - operatorie verrà personalizzato in base alle esigenze individuali.";
+                    question.appendChild(answerText);
+                    speak("Recupero immediato: Immediatamente dopo l'intervento chirurgico, i pazienti vengono monitorati in una sala di risveglio. Qui vengono controllati i segni vitali, gestiti eventuali effetti collaterali dell'anestesia e valutata la stabilità del paziente. Cure post - operatorie: A seconda del tipo di chirurgia, il paziente potrebbe richiedere cure specifiche come cambio di bendaggi, somministrazione di farmaci e terapie fisiche. Controllo del dolore: Il dolore post - operatorio viene gestito con farmaci prescritti in base alle esigenze del paziente.È importante seguire le indicazioni del medico per garantire un sollievo efficace dal dolore. Mobilità: A seconda dell'intervento chirurgico, ai pazienti potrebbe essere consigliato di muoversi il prima possibile per prevenire complicazioni come coaguli di sangue e atrofia muscolare. Follow - up medico: I pazienti di solito hanno appuntamenti di follow - up con il chirurgo per valutare la progressione del recupero e affrontare eventuali problemi o preoccupazioni. Riabilitazione: In alcuni casi, la riabilitazione può essere parte integrante della fase post - operatoria.Questo può includere fisioterapia, terapia occupazionale o altri programmi progettati per ripristinare la funzione e la mobilità. Restrizioni e raccomandazioni: Ai pazienti possono essere date istruzioni specifiche su attività da evitare durante il recupero, nonché raccomandazioni su modifiche allo stile di vita e alla dieta. Supporto emotivo: La fase post - operatoria può essere emotivamente impegnativa.Il supporto emotivo da parte di familiari, amici e, in alcuni casi, professionisti della salute mentale, può essere cruciale per un recupero di successo. È fondamentale seguire le istruzioni del team medico e comunicare con loro se sorgono preoccupazioni o complicazioni durante la fase post - operatoria.Ogni paziente e ogni intervento chirurgico sono unici, quindi il piano di cure post - operatorie verrà personalizzato in base alle esigenze individuali.");
+                });
+                // fase intra operatoria
+                goButton.addEventListener('click', () => {
+                    const answerText = document.createElement('p');
+                    answerText.textContent = "Preparazione del paziente: Prima dell'inizio dell'intervento, il paziente viene posizionato correttamente sul tavolo operatorio in conformità con la procedura chirurgica programmata. Vengono attuate misure per garantire il massimo comfort e sicurezza del paziente durante l'operazione. Anestesia: Se necessario, viene somministrata l'anestesia per mantenere il paziente privo di dolore durante l'intervento.L'anestesista monitora costantemente i segni vitali del paziente durante l'operazione. Sterilizzazione: La sala operatoria e gli strumenti chirurgici sono mantenuti in uno stato di sterilità per prevenire infezioni.Il chirurgo e il personale indossano indumenti sterili per ridurre al minimo il rischio di contaminazione. Monitoraggio dei parametri vitali: Durante l'intervento, vengono monitorati continuamente i parametri vitali del paziente, come la frequenza cardiaca, la pressione sanguigna e la saturazione di ossigeno nel sangue. Esecuzione della procedura: Il chirurgo e il team medico eseguono la procedura chirurgica pianificata seguendo il piano predefinito.Gli strumenti chirurgici vengono utilizzati con precisione per raggiungere gli obiettivi dell'intervento. Comunicazione nel team: La comunicazione all'interno del team chirurgico è essenziale. Il chirurgo, gli infermieri, l'anestesista e altri membri del team devono collaborare efficacemente per garantire una procedura sicura ed efficiente. Gestione delle complicazioni: In caso di imprevisti o complicazioni durante l'intervento, il team medico deve essere pronto a prendere decisioni immediate per risolvere la situazione nel miglior modo possibile. Controllo dell'emostasi: Durante l'intervento, il controllo del sanguinamento è cruciale.Il chirurgo utilizza diverse tecniche e strumenti per garantire l'emostasi, il controllo del flusso sanguigno. Registrazione e documentazione: Le procedure chirurgiche sono documentate accuratamente.Si registrano dettagli come la durata dell'intervento, gli strumenti utilizzati e qualsiasi evento significativo che si verifica durante l'operazione. La fase intra - operatoria richiede un elevato grado di competenza, coordinazione e comunicazione all'interno del team chirurgico per garantire una procedura sicura ed efficace.";
+                    question.appendChild(answerText);
+                    speak("Preparazione del paziente: Prima dell'inizio dell'intervento, il paziente viene posizionato correttamente sul tavolo operatorio in conformità con la procedura chirurgica programmata. Vengono attuate misure per garantire il massimo comfort e sicurezza del paziente durante l'operazione. Anestesia: Se necessario, viene somministrata l'anestesia per mantenere il paziente privo di dolore durante l'intervento.L'anestesista monitora costantemente i segni vitali del paziente durante l'operazione. Sterilizzazione: La sala operatoria e gli strumenti chirurgici sono mantenuti in uno stato di sterilità per prevenire infezioni.Il chirurgo e il personale indossano indumenti sterili per ridurre al minimo il rischio di contaminazione. Monitoraggio dei parametri vitali: Durante l'intervento, vengono monitorati continuamente i parametri vitali del paziente, come la frequenza cardiaca, la pressione sanguigna e la saturazione di ossigeno nel sangue. Esecuzione della procedura: Il chirurgo e il team medico eseguono la procedura chirurgica pianificata seguendo il piano predefinito.Gli strumenti chirurgici vengono utilizzati con precisione per raggiungere gli obiettivi dell'intervento. Comunicazione nel team: La comunicazione all'interno del team chirurgico è essenziale. Il chirurgo, gli infermieri, l'anestesista e altri membri del team devono collaborare efficacemente per garantire una procedura sicura ed efficiente. Gestione delle complicazioni: In caso di imprevisti o complicazioni durante l'intervento, il team medico deve essere pronto a prendere decisioni immediate per risolvere la situazione nel miglior modo possibile. Controllo dell'emostasi: Durante l'intervento, il controllo del sanguinamento è cruciale.Il chirurgo utilizza diverse tecniche e strumenti per garantire l'emostasi, il controllo del flusso sanguigno. Registrazione e documentazione: Le procedure chirurgiche sono documentate accuratamente.Si registrano dettagli come la durata dell'intervento, gli strumenti utilizzati e qualsiasi evento significativo che si verifica durante l'operazione. La fase intra - operatoria richiede un elevato grado di competenza, coordinazione e comunicazione all'interno del team chirurgico per garantire una procedura sicura ed efficace.");
+
+                    // Imposta lo stato del paziente su non operabile
+
+                    pazienteOperabile = false;
+
+                    // Blocca le domande successive
+                    if (!pazienteOperabile) {
+                        for (let i = index + 1; i < questions.length; i++) {
+                            const questionToDisable = questions[i];
+                            const answerButtonsToDisable = questionToDisable.querySelectorAll('.answerButton');
+                            questionToDisable.style.pointerEvents = "none";
+                            answerButtonsToDisable.forEach(button => {
+                                button.disabled = true;
+                            });
+                        }
+                    }
+                });
+            });
+        });
+        // Ottieni riferimenti agli elementi del DOM
+        const openPopupBtn = document.getElementById('openPopupBtn');
+        const popup = document.getElementById('popup');
+        const closePopupBtn = document.getElementById('closePopupBtn');
+        const qrcodeContainer = document.getElementById('qrcode');
+
+        // Aggiungi un gestore di eventi al pulsante per aprire il popup
+        openPopupBtn.addEventListener('click', function () {
+            popup.style.display = 'block';
+        });
+
+        // Aggiungi un gestore di eventi al pulsante per chiudere il popup
+        closePopupBtn.addEventListener('click', function () {
+            popup.style.display = 'none';
+        });
+
+        // Chiudi il popup se l'utente fa clic al di fuori del contenuto del popup
+        window.addEventListener('click', function (event) {
+            if (event.target === popup) {
+                popup.style.display = 'none';
+            }
+        });
+
+        const generaQRButton = document.getElementById('generaQR');
+        const CognomeInput = document.getElementById('Cognome');
+        const NomeInput = document.getElementById('Nome');
+        const CodiceFiscaleInput = document.getElementById('CodiceFiscale');
+        const EmailInput = document.getElementById('Email');
+        const TelefonoInput = document.getElementById('Telefono');
+        const DatadiNascitaInput = document.getElementById('DatadiNascita');
+
+        generaQRButton.addEventListener('click', () => {
+            const Cognome = CognomeInput.value;
+            const Nome = NomeInput.value;
+            const CodiceFiscale = CodiceFiscaleInput.value;
+            const Email = EmailInput.value;
+            const Telefono = TelefonoInput.value;
+            const DatadiNascita = DatadiNascitaInput.value;
+            const testoQR = `Cognome: ${Cognome}\nNome: ${Nome}\nCodiceFiscale: ${CodiceFiscale}\nEmail: ${Email}\nTelefono: ${Telefono}\nData di Nascita: ${DatadiNascita}`;
+
+
+            qrcodeContainer.innerHTML = ''; // Rimuovi il QR code precedente se presente
+
+            const qrcode = new QRCode(qrcodeContainer, {
+                text: testoQR,
+                width: 128,
+                height: 128
+            });
+        });
+
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            synth.speak(utterance);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const chatContainer = document.getElementById("chat-container");
+            const chatLog = document.getElementById("chat-log");
+            const userInput = document.getElementById("user-input");
+
+            function appendMessage(user, message) {
+                const messageElement = document.createElement("div");
+                messageElement.innerHTML = `<strong>${user}:</strong> ${message}`;
+                chatLog.appendChild(messageElement);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+
+            function handleUserInput() {
+                const userMessage = userInput.value.trim().toLowerCase();
+                appendMessage("You", userMessage);
+
+                // Simulazione di risposta del chatbot
+                let botReply = "Non ho capito. Puoi ripetere?";
+
+                if (userMessage.includes("alimentazione") || userMessage.includes("mangiare") || userMessage.includes("digiuno")) {
+                    botReply = "Inizia dalla mezzanotte antecedente la procedura. È indispensabile non assumere cibi e/o liquidi (acqua compresa) per evitare potenziali gravi complicanze al risveglio.";
+                } else if (userMessage.includes("igiene personale") || userMessage.includes("doccia") || userMessage.includes("lavarsi")) {
+                    botReply = "È importante eseguire un’accurata igiene del corpo con bagno o doccia per la prevenzione delle infezioni.";
+                } else if (userMessage.includes("protesi dentarie") || userMessage.includes("dentiera") || userMessage.includes("apparecchi acustici")) {
+                    botReply = "Devono essere rimosse prima di entrare in sala operatoria sia per la propria sicurezza sia per il rischio di smarrimento e rottura.";
+                } else if (userMessage.includes("Smalto (gel, semipermanente) e trucco")) {
+                    botReply = "Devono essere rimossi perché possono nascondere il vero colore della pelle, delle mucose e del letto ungueale, la cui osservazione è molto importante durante la procedura chirurgica.";
+                } else if (userMessage.includes("Oggetti e monili") || userMessage.includes("anelli") || userMessage.includes("catenine") || userMessage.includes("gioielli")) {
+                    botReply = "Devono essere tolti orologi, collane, piercing, anelli (compresa la fede nuziale), prima di accedere alla sala operatoria. Si consiglia di consegnare questi valori ai propri familiari.";
+                } else if (userMessage.includes("abbigliamento") || userMessage.includes("vestiti") || userMessage.includes("panni")) {
+                    botReply = "Si accede al gruppo operatorio con il camice, consegnato dal personale infermieristico, e si possono tenere: slip, canottiera, calze bianche pulite.";
+                } else if (userMessage.includes("certificato di ricovero") || userMessage.includes("giustificativo lavoro") || userMessage.includes("certificato")) {
+                    botReply = "Lo si può richiedere presso l’Ufficio Accettazione, ubicato al terzo piano ala D, uffico ricoveri.";
+                } else if (userMessage.includes("cartella clinica") || userMessage.includes("documentazione ricovero") || userMessage.includes("carte ricovero")) {
+                    botReply = "Si può richiedere presso l’apposito ufficio situato presso l'accettazione (ufficio richiesta cartelle cliniche)al terzo piano, dal lunedì al venerdì dalle ore 9 alle ore 12, previa compilazione dell’apposito modulo.";
+                }
+                // Sintesi vocale
+                const synth = window.speechSynthesis;
+                const utterance = new SpeechSynthesisUtterance(botReply);
+
+                // Imposta la velocità di lettura (modifica il valore a tuo piacimento)
+
+                utterance.rate = 0.5; // Il valore predefinito è 1.0, valori inferiori rallentano, valori superiori accelerano
+
+                synth.speak(utterance);
+
+
+                setTimeout(function () {
+                    appendMessage("Chatbot", botReply);
+                }, 500);
+
+                userInput.value = "";
+            }
+
+            userInput.addEventListener("keydown", function (event) {
+                if (event.key === "Enter") {
+                    handleUserInput();
+                }
+            });
+        });
+
+        function searchPage() {
+            var searchInput = $('#searchInput').val().toLowerCase();
+            var keywords = searchInput.split(',').map(keyword => keyword.trim());
+
+            $('body').unhighlight(); // Rimuovi eventuali evidenziazioni precedenti
+
+            keywords.forEach(function (keyword) {
+                $('body').highlight(keyword); // Evidenzia il testo corrispondente
+            });
+        }
+        // Aggiungi un gestore di eventi per il clic sul bottone
+        document.getElementById('inviaMessaggio').addEventListener('click', function () {
+            // Invia il messaggio a Swift quando il bottone viene cliccato
+
+            window.webkit.messageHandlers.messageHandler.postMessage("Ciao da JavaScript!");
+        });
+        //area riservata
+
+        // Funzione per aprire una finestra modale
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        // Funzione per chiudere una finestra modale
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function login() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username === 'Stefano' && password === 'Pepe') {
+                closeModal('loginModal');
+                openModal('uploadModal');
+            } else {
+                alert('Credenziali non valide. Riprova.');
+            }
+        }
+
+        function showSelectedFiles(files) {
+            var selectedFilesDiv = document.getElementById('selectedFiles');
+            selectedFilesDiv.innerHTML = ''; // Pulisci la lista dei file selezionati
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var fileName = file.name;
+                var fileSize = file.size;
+                var fileSizeFormatted = fileSize / 1024 + ' KB'; // Converti la dimensione del file in KB
+                var fileInfo = fileName + ' (' + fileSizeFormatted + ')'; // Crea una stringa con il nome e la dimensione del file
+                var fileInfoNode = document.createTextNode(fileInfo); // Crea un nodo di testo con le informazioni del file
+                var br = document.createElement('br'); // Crea un elemento <br> per il salto di riga
+                selectedFilesDiv.appendChild(fileInfoNode); // Aggiungi le informazioni del file al div
+                selectedFilesDiv.appendChild(br); // Aggiungi un salto di riga
+            }
+        }
+
+        function moveFiles() {
+            var selectedFilesDiv = document.getElementById('selectedFiles');
+            var uploadedFilesDiv = document.getElementById('uploadedFiles');
+
+            // Copia i file selezionati dalla finestra modale alla pagina principale
+            var files = selectedFilesDiv.childNodes;
+            for (var i = 0; i < files.length; i++) {
+                var fileInfo = files[i].textContent;
+                var fileName = fileInfo.split(' ')[0]; // Ottieni il nome del file
+                var fileSize = fileInfo.split(' ')[1]; // Ottieni la dimensione del file
+
+                // Crea un link per il file e aggiungilo alla pagina principale
+                var link = document.createElement('a');
+                link.href = '#'; // Inserisci qui l'URL del file se necessario
+                link.textContent = fileInfo;
+                uploadedFilesDiv.appendChild(link);
+                uploadedFilesDiv.appendChild(document.createElement('br')); // Aggiungi un salto di riga
+            }
+
+            // Pulisci la lista dei file selezionati
+            selectedFilesDiv.innerHTML = '';
+
+            // Chiudi la finestra modale
+            closeModal('uploadModal');
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2Xof4zfuXxMlRBgj2APKfQq1plh1Jo9SLfA" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script src="https://bartaz.github.io/sandbox.js/jquery.highlight.js"></script>
+
+
+
+</body>
+
+
+<footer class="container py-5">
+    <p>&copy; 2023 ERAS Recovery. All rights reserved.</p>
+    <div class="row">
+        <div class="col-12 col-md">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mb-2" role="img" viewBox="0 0 24 24"><title>Product</title><circle cx="12" cy="12" r="10" /><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94" /></svg>
+            <small class="d-block mb-3 text-body-secondary">&copy; 2022–2023</small>
+        </div>
+        <div class="col-6 col-md">
+            <h5>Features</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary text-decoration-none" href="#">Cool stuff</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Random feature</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Team feature</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Stuff for developers</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Another one</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Last time</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary text-decoration-none" href="#">Resource name</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Resource</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Another resource</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Final resource</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary text-decoration-none" href="#">Business</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Education</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Government</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Gaming</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>About</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary text-decoration-none" href="#">Team</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Locations</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Privacy</a></li>
+                <li><a class="link-secondary text-decoration-none" href="#">Terms</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</html>
+
