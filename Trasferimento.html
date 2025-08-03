@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <title>Percorso Chirurgico Interattivo Avanzato</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <style>
+        /* (mantieni il tuo stile senza modifiche) */
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 10px;
+            background: #f5f7fa;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type=text], input[type=number] {
+            width: 100%;
+            padding: 7px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .timeline-vertical {
+            border-left: 3px solid #007BFF;
+            margin-left: 20px;
+            padding-left: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .step-vertical {
+            position: relative;
+            padding: 15px 20px 15px 40px;
+            margin-bottom: 20px;
+            background: #e9f1ff;
+            border-radius: 5px;
+            cursor: grab;
+            transition: background-color 0.3s;
+        }
+
+            .step-vertical:hover {
+                background: #d0e3ff;
+            }
+
+            .step-vertical.active {
+                background: #007BFF;
+                color: white;
+                font-weight: bold;
+            }
+
+            .step-vertical.completed {
+                background: #c8f7c5;
+                border: 1px solid green;
+                color: green;
+            }
+
+            .step-vertical::before {
+                content: "";
+                position: absolute;
+                left: -33px;
+                top: 18px;
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                border: 3px solid #007BFF;
+                background: white;
+                transition: background-color 0.3s, border-color 0.3s;
+            }
+
+            .step-vertical.completed::before {
+                background: green;
+                border-color: green;
+            }
+
+            .step-vertical.active::before {
+                background: white;
+                border-color: white;
+            }
+
+        .info-box {
+            margin-top: 10px;
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 60px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            resize: vertical;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+            background-color: #007BFF;
+            transition: background-color 0.3s;
+        }
+
+            button:disabled {
+                background-color: #ccc;
+                cursor: not-allowed;
+            }
+
+            button.complete-btn {
+                background-color: green;
+            }
+
+        .patient-data {
+            margin-bottom: 20px;
+        }
+
+        table {
+            margin-top: 30px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr:hover {
+            background-color: #f0f8ff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="container">
+        <h2>Percorso Chirurgico del Paziente</h2>
+
+        <div class="patient-data" v-if="!completed" style="margin-bottom: 20px;">
+            <label>Nome</label>
+            <input type="text" v-model="patient.nome" placeholder="Nome" @input="saveToStorage" />
+
+            <label>Cognome</label>
+            <input type="text" v-model="patient.cognome" placeholder="Cognome" @input="saveToStorage" />
+
+            <label>Email</label>
+            <input type="text" v-model="patient.email" placeholder="Email" @input="saveToStorage" />
+
+            <label>Telefono</label>
+            <input type="text" v-model="patient.telefono" placeholder="Telefono" @input="saveToStorage" />
+
+            <label>Codice Fiscale</label>
+            <input type="text" v-model="patient.codiceFiscale" placeholder="Codice Fiscale" @input="saveToStorage" />
+
+            <label>Reparto</label>
+            <input type="text" v-model="patient.reparto" placeholder="Reparto" @input="saveToStorage" />
+        </div>
+
+        <h3>Seleziona paziente dalla tabella per importare i dati:</h3>
+        <table class="table table-striped" style="cursor: pointer;">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                    <th>Codice Fiscale</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(p, index) in patients"
+                    :key="index"
+                    @click="selectAndRemovePatient(index)"
+                    style="user-select:none;">
+                    <td>{{ p.data }}</td>
+                    <td>{{ p.nome }}</td>
+                    <td>{{ p.cognome }}</td>
+                    <td>{{ p.email }}</td>
+                    <td>{{ p.telefono }}</td>
+                    <td>{{ p.codiceFiscale }}</td>
+                </tr>
+            </tbody>
+            <tr>
+                <td>20-05-2025 21:54:53</td>
+                <td>Stefania</td>
+                <td>Lazzarini</td>
+                <td>Pepestefano@yahoo.it</td>
+                <td>12345678</td>
+                <td>Ppesfn77e26h501l</td>
+            </tr>
+            <tr>
+                <td>21-05-2025 14:14:58</td>
+                <td>Vincenzo</td>
+                <td>Mencio</td>
+                <td>Stefano.pepe@yaihoo.it</td>
+                <td>12345678</td>
+                <td>Sdfghjkl</td>
+            </tr>
+            <tr>
+        <td>06-06-2025 16:35:40</td>
+        <td>Fresa</td>
+        <td>Enrico</td>
+        <td>Frezza@yahoo.it</td>
+        <td>123456789</td>
+        <td>Fraenr44rc36f409l</td>
+    </tr>
+    <tr>
+        <td>06-06-2025 16:48:35</td>
+        <td>Paoloni</td>
+        <td>Enrico</td>
+        <td>Frezza@yahoo.it</td>
+        <td>123456789</td>
+        <td>Fraenr44rc36f409l</td>
+    </tr>
+    <tr>
+        <td>06-06-2025 16:54:30</td>
+        <td>Paolini</td>
+        <td>Enrico</td>
+        <td>Frezza@yahoo.it</td>
+        <td>12343fr680</td>
+        <td>Fraenr44rc3er567l</td>
+    </tr>
+</table>
+
+        <div class="timeline-vertical" id="stepList" style="margin-top: 30px;">
+            <div v-for="(step, index) in steps"
+                 :key="index"
+                 class="step-vertical"
+                 :class="{ active: currentStep === index, completed: step.completed }"
+                 @click="selectStep(index)"
+                 style="cursor:pointer; margin: 10px 0; padding: 5px; border: 1px solid #ccc;">
+                {{ index + 1 }}. {{ step.title }}
+            </div>
+        </div>
+
+        <div class="info-box" v-if="currentStep !== null" style="margin-top: 20px;">
+            <h3>{{ steps[currentStep].title }}</h3>
+            <p>{{ steps[currentStep].description }}</p>
+
+            <label>Note per questa fase:</label>
+            <textarea v-model="steps[currentStep].notes" rows="4" style="width:100%;"></textarea>
+
+            <div class="buttons" style="margin-top:10px;">
+                <button @click="prevStep" :disabled="currentStep === 0">Indietro</button>
+                <button @click="nextStep" :disabled="currentStep === steps.length - 1">Avanti</button>
+                <button class="complete-btn" @click="toggleComplete(currentStep)">
+                    {{ steps[currentStep].completed ? "Segna come non completata" : "Segna come completata" }}
+                </button>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px;">
+            <h3>Cerca paziente completato</h3>
+            <input type="text"
+                   v-model="searchQuery"
+                   placeholder="Nome, cognome o codice fiscale"
+                   style="width: 100%; margin-bottom: 10px;" />
+            <ul>
+                <li v-for="p in filteredCompletedPatients" :key="p.codiceFiscale">
+                    {{ p.nome }} {{ p.cognome }} - {{ p.codiceFiscale }} - {{ p.email }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>const { createApp } = Vue;
+
+        const app = createApp({
+            data() {
+                return {
+                    patient: {
+                        nome: '',
+                        cognome: '',
+                        email: '',
+                        telefono: '',
+                        codiceFiscale: '',
+                        reparto: ''
+                    },
+                    patients: [
+                        {
+                            data: '20-05-2025',
+                            nome: 'Marcantonio',
+                            cognome: 'Augusto',
+                            email: 'Asdfgh@gmail.com',
+                            telefono: '1234567',
+                            codiceFiscale: 'Sdfghjk45zsdfgh567',
+                            reparto: ''
+                        }
+
+                    ],
+                    steps: [
+                        { title: "Accoglienza", description: "Registrazione e orientamento.", notes: '', completed: false },
+                        { title: "Pre-ricovero", description: "Visite ed esami pre-operatori.", notes: '', completed: false },
+                        { title: "Ricovero", description: "Preparazione all'intervento.", notes: '', completed: false },
+                        { title: "Intervento Chirurgico", description: "Operazione e risveglio.", notes: '', completed: false },
+                        { title: "Post-Operatorio", description: "Monitoraggio e riabilitazione.", notes: '', completed: false },
+                        { title: "Dimissione", description: "Follow-up e uscita.", notes: '', completed: false }
+                    ],
+                    currentStep: 0,
+                    completed: false,
+                    completedPatients: [],
+                    searchQuery: '',
+                    dataDimissione: ''
+                };
+            },
+            computed: {
+                filteredCompletedPatients() {
+                    const q = this.searchQuery.toLowerCase();
+                    return this.completedPatients.filter(p =>
+                        p.nome.toLowerCase().includes(q) ||
+                        p.cognome.toLowerCase().includes(q) ||
+                        p.codiceFiscale.toLowerCase().includes(q)
+                    );
+                }
+            },
+            methods: {
+                nextStep() {
+                    if (this.currentStep < this.steps.length - 1) this.currentStep++;
+                },
+                prevStep() {
+                    if (this.currentStep > 0) this.currentStep--;
+                },
+                selectStep(index) {
+                    this.currentStep = index;
+                },
+                toggleComplete(index) {
+                    this.steps[index].completed = !this.steps[index].completed;
+                    const allDone = this.steps.every(s => s.completed);
+                    if (allDone && !this.completed) {
+                        this.completed = true;
+                        this.dataDimissione = new Date().toLocaleDateString('it-IT');
+                        this.completedPatients.push({ ...this.patient });
+                        this.patients = this.patients.filter(p => p.codiceFiscale !== this.patient.codiceFiscale);
+                        alert(`Percorso completato per ${this.patient.nome} ${this.patient.cognome}`);
+                    }
+                },
+                selectAndRemovePatient(index) {
+                    const selected = this.patients[index];
+                    this.patient = { ...selected };
+                    this.patients.splice(index, 1);
+                    this.completed = false;
+                    this.currentStep = 0;
+                    this.dataDimissione = '';
+                    this.steps.forEach(step => {
+                        step.completed = false;
+                        step.notes = '';
+                    });
+                },
+                addPatientFromHTML(htmlRow) {
+                    const temp = document.createElement('table');
+                    temp.innerHTML = `<tbody>${htmlRow}</tbody>`;
+                    const tr = temp.querySelector('tr');
+                    if (!tr) return;
+
+                    const tds = tr.querySelectorAll('td');
+                    if (tds.length < 6) return;
+
+                    const newPatient = {
+                        data: tds[0].textContent.trim().split(' ')[0],
+                        nome: tds[1].textContent.trim(),
+                        cognome: tds[2].textContent.trim(),
+                        email: tds[3].textContent.trim(),
+                        telefono: tds[4].textContent.trim(),
+                        codiceFiscale: tds[5].textContent.trim(),
+                        reparto: ''
+                    };
+
+                    const exists = this.patients.some(p => p.codiceFiscale === newPatient.codiceFiscale);
+                    if (!exists) {
+                        this.patients.push(newPatient);
+                    }
+                },
+
+                saveToStorage() {
+                    // eventualmente salva dati su localStorage o altro
+                }
+            },
+            mounted() {
+                const staticRows = document.querySelectorAll("table tbody tr:not([v-for])");
+                staticRows.forEach(tr => {
+                    const htmlRow = tr.outerHTML;
+                    this.addPatientFromHTML(htmlRow);
+                    tr.remove();
+                });
+            }
+        });
+
+        app.mount('#app');</script>
+</body>
+
+
+</html>
